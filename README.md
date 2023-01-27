@@ -8,6 +8,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Diccionarios](#diccionarios)
 - [Mapeando opciones ](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
+- [Utilización de keyof](#utilización-de-keyof)
 
 
 
@@ -130,3 +131,25 @@ export class BarError extends AbstractError {
 ```
 
 ----------------------------------------------------------  
+## Utilización de keyof
+
+* Ejemplo interesante de _keyof_: 
+
+```typescript
+export type Person = {
+  id: string;
+  name: string;
+  age: number;
+  enabled: boolean;
+};
+
+const updateSomePerson = (
+  timeSlotId: Person['id'], // allow the id of Person
+  keyToUpdate: keyof Person, // allow any property of Person: 'id', 'name', 'age', 'enabled'
+  newValue: Person[keyof Person] // allow string, number or boolean!
+): void => {
+  // ...
+};
+
+updateSomePerson('12a3b4c1', 'name', 'john doe');
+```
