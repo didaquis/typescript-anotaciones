@@ -146,8 +146,8 @@ export type Person = {
 
 const updateSomePerson = (
 	timeSlotId: Person['id'], // allow the id of Person
-  keyToUpdate: keyof Person, // allow any property of Person: 'id', 'name', 'age', 'enabled'
-  newValue: Person[keyof Person] // allow string, number or boolean!
+	keyToUpdate: keyof Person, // allow any property of Person: 'id', 'name', 'age', 'enabled'
+	newValue: Person[keyof Person] // allow string, number or boolean!
 ): void => {
 	// ...
 };
