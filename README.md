@@ -9,7 +9,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Mapeando opciones ](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
-- [Obtener los tipos de un método de una librería de terceros no tipada](#obtener-los-tipos-de-un-método-de-una-librería-de-terceros-no-tipada)
+- [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 
 
 
@@ -157,7 +157,7 @@ updateSomePerson('12a3b4c1', 'name', 'john doe');
 
 ----------------------------------------------------------  
 
-## Obtener los tipos de un método de una librería de terceros no tipada
+## Obtener los tipos de una librería de terceros no tipada
 
 
 Are you ever building something in TypeScript and realize... AGH! This package is not exporting a type I need!
