@@ -29,7 +29,7 @@ if (a.age > 25) { // This is not allowed on TypeScript
   console.log('true b')
 }
 
-if (a.hasOwnProperty('age') && typeof a.age === 'number' && a.age > 25) { // TypeScript force you to check if property exists before using it
+if (Object.hasOwn(a, 'age') && typeof a.age === 'number' && a.age > 25) { // TypeScript force you to check if property exists before using it
   console.log('true a')
 }
 ```
