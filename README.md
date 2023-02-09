@@ -9,6 +9,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Mapeando opciones ](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
+- [Obtener los tipos de un método de una librería de terceros no tipada](#obtener-los-tipos-de-un-método-de-una-librería-de-terceros-no-tipada)
 
 
 
@@ -137,19 +138,90 @@ export class BarError extends AbstractError {
 
 ```typescript
 export type Person = {
-  id: string;
+	id: string;
   name: string;
   age: number;
   enabled: boolean;
 };
 
 const updateSomePerson = (
-  timeSlotId: Person['id'], // allow the id of Person
+	timeSlotId: Person['id'], // allow the id of Person
   keyToUpdate: keyof Person, // allow any property of Person: 'id', 'name', 'age', 'enabled'
   newValue: Person[keyof Person] // allow string, number or boolean!
 ): void => {
-  // ...
+	// ...
 };
 
 updateSomePerson('12a3b4c1', 'name', 'john doe');
 ```
+
+----------------------------------------------------------  
+
+## Obtener los tipos de un método de una librería de terceros no tipada
+
+
+Are you ever building something in TypeScript and realize... AGH! This package is not exporting a type I need!
+
+![Library not exporting types](./assets/library-not-exporting-types.jpeg)
+
+Fortunately, TypeScript gives us a number of [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html) that can solve this common problem.
+
+For instance, to grab the type returned from a function, we can use the `ReturnType` utility:
+
+```typescript
+import { getContent } from '@builder.io'
+const content = await getContent()
+// 😍
+type Content = ReturnType<typeof getContent>
+```
+
+But we have one little problem. `getContent` is an `async` function that returns a promise, so currently our `Content` type is actually `Promise`, which is not what we want.
+
+For that, we can use the `Awaited` type to unwrap the promise and get the type of what the promise resolves to:
+
+```typescript
+import { getContent } from '@builder.io'
+const content = await getContent()
+// ✅
+type Content = Awaited<ReturnType<typeof getContent>>
+```
+
+Now we have exactly the type we needed, even though it is not explicitly exported. Well, that’s a relief.
+
+But what if we need argument types for that function?
+
+For instance, `getContent` takes an optional argument called `ContentKind` that is a union of strings. I really don’t want to have to type this out manually, so let’s use the `Parameters` utility type to extract its parameters:
+
+```typescript
+type Arguments = Parameters<typeof getContent>
+// [ContentKind | undefined]
+```
+`Parameters` gives you a tuple of the argument types, and you can pull out a specific parameter type by index like so:
+
+```typescript
+type ContentKind = Parameters<typeof getContent>[0]
+```
+But we have one last issue. Because this is an optional argument, our `ContentKind` type right now is actually `ContentKind | undefined`, which is not what we want.
+
+For this, we can use the `NonNullable` utility type, to exclude any `null` or `undefined` values from a union type.
+```typescript
+// ✅
+type ContentKind = NonNullable<Parameters<typeof getContent>[0]>
+// ContentKind
+```
+Now our `ContentKind` type perfectly matches the `ContentKind` in this package that was not being exported, and we can use it in our `processContent` function like so:
+```typescript
+import { getContent } from '@builder.io'
+
+const content = await getContent()
+
+type Content = Awaited<ReturnType<typeof getContent>>
+type ContentKind = NonNullable<Parameters<typeof getContent>[0]>
+
+// 🥳
+function processContent(content: Content, kind: ContentKind) {
+  // ...
+}
+```
+
+----------------------------------------------------------  
