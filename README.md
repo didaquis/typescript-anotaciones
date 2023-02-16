@@ -10,6 +10,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
 - [Utilización de Omit](#utilización-de-omit)
+- [Utilización de Pick](#utilización-de-pick)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 
 
@@ -171,6 +172,22 @@ type User = {
 }
 
 type UnsavedUser = Omit<User, 'id'>;
+```
+
+----------------------------------------------------------  
+## Utilización de Pick
+
+* Puedes utilizar _Pick_ para crear typos en base a algunas propiedades de otro tipo.
+
+```typescript
+type User = {
+    age: number;
+    gender: string;
+    country: string;
+    city: string
+};
+
+type DemographicUserData = Pick<User, 'age'|'gender'>;
 ```
 
 ----------------------------------------------------------  
