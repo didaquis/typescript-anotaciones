@@ -9,6 +9,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Mapeando opciones ](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
+- [Utilización de Omit](#utilización-de-omit)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 
 
@@ -153,6 +154,23 @@ const updateSomePerson = (
 };
 
 updateSomePerson('12a3b4c1', 'name', 'john doe');
+```
+
+----------------------------------------------------------  
+## Utilización de Omit
+
+* Evita hacer una propiedad opcional cuando la propiedad no es válida en un determinado caso. En su lugar, declara 2 tipos separados, y utiliza _Omit_ para evitar copiar/pegar.
+
+Ejemplo: Muchos objetos carecen de id hasta que son guardados. Así que declara un tipo separado para la situación en que ese objeto esta "no guardado":
+
+```typescript
+type User = {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type UnsavedUser = Omit<User, 'id'>;
 ```
 
 ----------------------------------------------------------  
