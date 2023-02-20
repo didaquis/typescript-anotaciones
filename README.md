@@ -23,13 +23,13 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 type Dictionary = { [key: string]: unknown };
 
 const a: Dictionary = {
-  name: 'didi',
-  age: 39,
-  male: true
+	name: 'didi',
+	age: 39,
+	male: true
 }
 
 if (a.age > 25) { // This is not allowed on TypeScript
-  console.log('true b')
+	console.log('true b')
 }
 
 if (Object.hasOwn(a, 'age') && typeof a.age === 'number' && a.age > 25) { // TypeScript force you to check if property exists before using it
@@ -142,9 +142,9 @@ export class BarError extends AbstractError {
 ```typescript
 export type Person = {
 	id: string;
-  name: string;
-  age: number;
-  enabled: boolean;
+	name: string;
+	age: number;
+	enabled: boolean;
 };
 
 const updateSomePerson = (
@@ -167,9 +167,9 @@ Ejemplo: Muchos objetos carecen de id hasta que son guardados. Así que declara 
 
 ```typescript
 type User = {
-  id: number;
-  name: string;
-  email: string;
+	id: number;
+	name: string;
+	email: string;
 }
 
 type UnsavedUser = Omit<User, 'id'>;
@@ -182,10 +182,10 @@ type UnsavedUser = Omit<User, 'id'>;
 
 ```typescript
 type User = {
-    age: number;
-    gender: string;
-    country: string;
-    city: string
+	age: number;
+	gender: string;
+	country: string;
+	city: string
 };
 
 type DemographicUserData = Pick<User, 'age'|'gender'>;
@@ -256,7 +256,7 @@ type ContentKind = NonNullable<Parameters<typeof getContent>[0]>
 
 // 🥳
 function processContent(content: Content, kind: ContentKind) {
-  // ...
+	// ...
 }
 ```
 
@@ -268,19 +268,19 @@ function processContent(content: Content, kind: ContentKind) {
 
 ```typescript
 type Day = {
-  index: number
+	index: number
 };
 
 type WeekTuple = [Day, Day, Day, Day, Day, Day, Day]; // Tuple!
 
 const getATuple = (): WeekTuple => {
-  const WEEK_DAYS = [1, 2, 3, 4, 5, 6, 7];
+	const WEEK_DAYS = [1, 2, 3, 4, 5, 6, 7];
 
-  return WEEK_DAYS.map((dayOfWeek): Day => {
-    return {
-      index: dayOfWeek,
-    };
-  });
+	return WEEK_DAYS.map((dayOfWeek): Day => {
+		return {
+			index: dayOfWeek,
+		};
+	});
 };
 
 /**
@@ -306,14 +306,14 @@ const getATuple = (): WeekTuple => {
  * Observa que estamos usando inferencia de tipos en el retorno de esta función
  */
 function foo(size: number) {
-    return new Array(size).fill(0);
+	return new Array(size).fill(0);
 }
 
 /*
  * Aquí decidimos forzar el tipo de retorno
 */
 function bar(): string[] {
-    return foo(10);
+	return foo(10);
 }
 
 const items = bar();
