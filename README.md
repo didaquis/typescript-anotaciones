@@ -6,12 +6,13 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 
 ## Tabla de Contenido
 - [Diccionarios](#diccionarios)
-- [Mapeando opciones ](#mapeando-opciones)
+- [Mapeando opciones](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
 - [Utilización de Omit](#utilización-de-omit)
 - [Utilización de Pick](#utilización-de-pick)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
+- [Anomalías de TypeScript](#anomalías-de-typescript)
 
 
 
@@ -259,4 +260,69 @@ function processContent(content: Content, kind: ContentKind) {
 }
 ```
 
+----------------------------------------------------------  
+
+## Anomalías de TypeScript
+
+* Casos extraños trabajando con tuplas y Array.map():
+
+```typescript
+type Day = {
+  index: number
+};
+
+type WeekTuple = [Day, Day, Day, Day, Day, Day, Day]; // Tuple!
+
+const getATuple = (): WeekTuple => {
+  const WEEK_DAYS = [1, 2, 3, 4, 5, 6, 7];
+
+  return WEEK_DAYS.map((dayOfWeek): Day => {
+    return {
+      index: dayOfWeek,
+    };
+  });
+};
+
+/**
+ * Este código produce el siguiente error de tipo:
+ *
+ * El tipo 'Day[]' no se puede asignar al tipo 'WeekTuple'. El destino requiere 7 elemento(s), pero el origen puede tener menos.
+ */
+
+
+/**
+ * Sin embargo, no hay ningún error en el código. En este caso, el origen tendrá exactamente los 7 elementos que requiere la tupla.
+ *
+ * Es importante recordar que las tuplas no existen en JavaScript. TypeScript nos permite trabajar con ellas, pero algunas cosas no están bien resueltas. En este caso, lo que retorna Array.map() no puede ser asignado a una tupla.
+ *
+ * Más info: https://github.com/microsoft/TypeScript/issues/29841
+ */
+```
+
+* Cuidado con la inferencia de tipos:
+
+```typescript
+/*
+ * Observa que estamos usando inferencia de tipos en el retorno de esta función
+ */
+function foo(size: number) {
+    return new Array(size).fill(0);
+}
+
+/*
+ * Aquí decidimos forzar el tipo de retorno
+*/
+function bar(): string[] {
+    return foo(10);
+}
+
+const items = bar();
+/*
+ * En este punto, TypeScript cree que `items` tiene este tipo `string[]`, pero en realidad `items` contiene esto `number[]`.
+ *
+ * Si no hubieramos hecho inferencia en la primera función, TypeScript nos hubiera advertido de que la segunda función no retorna un array de strings. Sin embargo, al dejar que haga inferencia en la primera función no nos ha advertido.
+ *
+ * Fíjate que la inferencia hace que el retorno de la primera función sea `any[]`. Sin embargo, sabemos que el contenido de ese array será siempre un número.
+ */
+```
 ----------------------------------------------------------  
