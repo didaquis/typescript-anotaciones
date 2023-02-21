@@ -325,4 +325,17 @@ const items = bar();
  * Fíjate que la inferencia hace que el retorno de la primera función sea `any[]`. Sin embargo, sabemos que el contenido de ese array será siempre un número.
  */
 ```
+
+* Array.filter tampoco funciona bien:
+
+```typescript
+const list = [ 1, 2, 3, undefined];
+
+const result = list.filter(Boolean); // [ 1, 2, 3 ]
+
+/**
+ * El tipado de la variable result no es correcto, es: (number | undefined)[]
+ */
+```
+
 ----------------------------------------------------------  
