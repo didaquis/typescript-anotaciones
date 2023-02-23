@@ -13,6 +13,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Utilización de Pick](#utilización-de-pick)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 - [Anomalías de TypeScript](#anomalías-de-typescript)
+- [@ts-expect-error versus @ts-ignore](#ts-expect-error-versus-ts-ignore)
 
 
 
@@ -336,6 +337,21 @@ const result = list.filter(Boolean); // [ 1, 2, 3 ]
 /**
  * El tipado de la variable result no es correcto, es: (number | undefined)[]
  */
+```
+
+----------------------------------------------------------  
+
+## @ts-expect-error versus @ts-ignore
+
+* Existen dos maneras de suprimir errores en TypeScript: _@ts-expect-error_ y _@ts-ignore_. La única diferencia práctica en ambos casos es que _@ts-expect-error_ ignora el error mientras éste exista, pero si el error deja de existir te notifica que quizás ya no necesites esa directiva: `Unused '@ts-expect-error' directive`.
+
+En algunos casos te convendrá usar uno y otros casos preferirás el otro.
+
+```typescript
+const isOptionEnabled = (key: string): boolean => {
+  // @ts-expect-error: if key isn't in globalOptions it'll be undefined which is false
+  return !!globalOptions[key];
+};
 ```
 
 ----------------------------------------------------------  
