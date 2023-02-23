@@ -21,20 +21,20 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 ## Diccionarios
 
 ```typescript
-type Dictionary = { [key: string]: unknown };
+type Dictionary = { readonly [key: string]: unknown }; // readonly is optional!
 
-const a: Dictionary = {
+const didi: Dictionary = {
 	name: 'didi',
-	age: 39,
+	age: 19,
 	male: true
 }
 
-if (a.age > 25) { // This is not allowed on TypeScript
-	console.log('true b')
+if (didi.age > 25) { // This is not allowed on TypeScript
+	// ...
 }
 
-if (Object.hasOwn(a, 'age') && typeof a.age === 'number' && a.age > 25) { // TypeScript force you to check if property exists before using it
-  console.log('true a')
+if (Object.hasOwn(didi, 'age') && typeof didi.age === 'number' && didi.age > 25) { // TypeScript force you to check if property exists before using it
+  // ...
 }
 ```
 ----------------------------------------------------------  
