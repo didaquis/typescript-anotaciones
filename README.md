@@ -23,7 +23,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 * Un ejemplo sencillo de diccionario.
 
 ```typescript
-type Dictionary = { [key: string]: unknown }; // Puedes usar un "type" o una "interface" indistintamente
+type Dictionary = { [key: string]: unknown }; // Puedes usar "type" o "interface"
 
 const user: Dictionary = {
 	name: 'John',
@@ -31,11 +31,13 @@ const user: Dictionary = {
 	male: true
 }
 
-if (user.age > 25) { // This is not allowed on TypeScript
+// TypeScript no te permitirá hacer esto gracias a "unknown"
+if (user.age > 25) {
 	// ...
 }
 
-if (Object.hasOwn(user, 'age') && typeof user.age === 'number' && user.age > 25) { // TypeScript force you to check if property exists before using it
+// te obligará a comprobar si la propiedad existe antes de usarla
+if (Object.hasOwn(user, 'age') && typeof user.age === 'number' && user.age > 25) {
   // ...
 }
 ```
@@ -43,9 +45,10 @@ if (Object.hasOwn(user, 'age') && typeof user.age === 'number' && user.age > 25)
 * Diccionario protegido contra escritura:
 
 ```typescript
-interface Dictionary { readonly [key: string]: unknown }; // índicale a TypeScript que es de modo lectura con "readonly"
+interface Dictionary { readonly [key: string]: unknown }; // previene la escrituta con "readonly"
 
-const user: Dictionary = Object.freeze({ // Object.freeze no es estrictamente necesario, pero se complementa muy bien con "readonly"
+const user: Dictionary = Object.freeze({
+	// Object.freeze no es necesario, pero se complementa con "readonly"
 	name: 'didi',
 	age: 19,
 	male: true
