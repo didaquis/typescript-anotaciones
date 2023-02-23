@@ -23,7 +23,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 * Un ejemplo sencillo de diccionario.
 
 ```typescript
-type Dictionary = { [key: string]: unknown }; // Puedes usar "type" o "interface"
+type Dictionary = { [key: string]: unknown }; // Puedes usar 'type' o 'interface'
 
 const user: Dictionary = {
 	name: 'John',
@@ -31,7 +31,7 @@ const user: Dictionary = {
 	male: true
 }
 
-// TypeScript no te permitirá hacer esto gracias a "unknown"
+// TypeScript no te permitirá hacer esto gracias a 'unknown'
 if (user.age > 25) {
 	// ...
 }
@@ -45,10 +45,10 @@ if (Object.hasOwn(user, 'age') && typeof user.age === 'number' && user.age > 25)
 * Diccionario protegido contra escritura:
 
 ```typescript
-interface Dictionary { readonly [key: string]: unknown }; // previene la escrituta con "readonly"
+interface Dictionary { readonly [key: string]: unknown }; // previene la escrituta con 'readonly'
 
 const user: Dictionary = Object.freeze({
-	// Object.freeze no es necesario, pero se complementa con "readonly"
+	// Object.freeze no es necesario, pero se complementa con 'readonly'
 	name: 'didi',
 	age: 19,
 	male: true
@@ -125,7 +125,7 @@ Manera correcta de extender la clase Error en TypeScript:
 /**
  * Declare an abstract class. All error classes should extend from this abstract factory.
  *
- * On this example, I added an optional property called "data". You can pass an Object to the constructor to add data to the error instance. Usefull to send data to a logger function or something like that. For example, you can use the property "message" to provide info for developers and use the property "data" to provide info to the API clients.
+ * On this example, I added an optional property called 'data'. You can pass an Object to the constructor to add data to the error instance. Usefull to send data to a logger function or something like that. For example, you can use the property 'message' to provide info for developers and use the property 'data' to provide info to the API clients.
  */
 export abstract class AbstractError extends Error {
 	constructor(public readonly message: string, public readonly data?: Record<string, unknown>) {
@@ -177,9 +177,9 @@ type Person = {
 };
 
 const updateSomePerson = (
-	timeSlotId: Person['id'], // allow the id of Person
-	keyToUpdate: keyof Person, // allow any property of Person: 'id', 'name', 'age', 'enabled'
-	newValue: Person[keyof Person] // allow string, number or boolean!
+	timeSlotId: Person['id'], // permite el tipo 'id' of Person
+	keyToUpdate: keyof Person, // permite cualquier propiedad de Person: 'id', 'name', 'age', 'enabled'
+	newValue: Person[keyof Person] // permite string, number or boolean!
 ): void => {
 	// ...
 };
@@ -383,8 +383,9 @@ Es importante no confundirse con la directiva _@ts-nocheck_, la cual permite des
 
 ```typescript
 const isOptionEnabled = (key: string): boolean => {
-  // @ts-expect-error: if key isn't in globalOptions it'll be undefined which is false
-  return !!globalOptions[key];
+
+	// @ts-expect-error: si 'key' no está en 'globalOptions' será undefined que es false
+	return !!globalOptions[key];
 };
 ```
 
