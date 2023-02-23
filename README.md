@@ -204,7 +204,7 @@ type UnsavedUser = Omit<User, 'id'>;
 ----------------------------------------------------------  
 ## Utilización de Pick
 
-* Puedes utilizar _Pick_ para crear typos en base a algunas propiedades de otro tipo.
+* Puedes utilizar _Pick_ para crear typos en base a algunas propiedades de otro tipo. Fíjate que es una alternativa a _Partial_ para cuando si sabemos exactamente que propiedades contendrá nuestro nuevo tipo!
 
 ```typescript
 type User = {
