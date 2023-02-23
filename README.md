@@ -363,7 +363,9 @@ const list = [ 1, 2, 3, undefined];
 const result = list.filter(Boolean); // [ 1, 2, 3 ]
 
 /**
- * El tipado de la variable result no es correcto, es: (number | undefined)[]
+ * El tipado de la variable result no es correcto.
+ * TypeScript cree que el tipo es: (number | undefined)[]
+ * Sin embargo, es: number[]
  */
 ```
 
