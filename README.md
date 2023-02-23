@@ -20,23 +20,48 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 ----------------------------------------------------------
 ## Diccionarios
 
-```typescript
-type Dictionary = { readonly [key: string]: unknown }; // readonly is optional!
+* Un ejemplo sencillo de diccionario.
 
-const didi: Dictionary = {
-	name: 'didi',
+```typescript
+type Dictionary = { [key: string]: unknown }; // Puedes usar un "type" o una "interface" indistintamente
+
+const user: Dictionary = {
+	name: 'John',
 	age: 19,
 	male: true
 }
 
-if (didi.age > 25) { // This is not allowed on TypeScript
+if (user.age > 25) { // This is not allowed on TypeScript
 	// ...
 }
 
-if (Object.hasOwn(didi, 'age') && typeof didi.age === 'number' && didi.age > 25) { // TypeScript force you to check if property exists before using it
+if (Object.hasOwn(user, 'age') && typeof user.age === 'number' && user.age > 25) { // TypeScript force you to check if property exists before using it
   // ...
 }
 ```
+
+* Diccionario protegido contra escritura:
+
+```typescript
+interface Dictionary { readonly [key: string]: unknown }; // índicale a TypeScript que es de modo lectura con "readonly"
+
+const user: Dictionary = Object.freeze({ // Object.freeze no es estrictamente necesario, pero se complementa muy bien con "readonly"
+	name: 'didi',
+	age: 19,
+	male: true
+})
+```
+
+* Combinándolo con genéricos:
+```typescript
+interface Dictionary<T> { [key: string]: T };
+
+const featureFlagsConfiguration: Dictionary<boolean> = {
+	newUserProfilePage: true,
+	experimentalFilters: false,
+}
+```
+
 ----------------------------------------------------------  
 ## Mapeando opciones
 
@@ -141,7 +166,7 @@ export class BarError extends AbstractError {
 * Ejemplo interesante de _keyof_: 
 
 ```typescript
-export type Person = {
+type Person = {
 	id: string;
 	name: string;
 	age: number;
