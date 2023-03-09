@@ -9,6 +9,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Mapeando opciones](#mapeando-opciones)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
+- [Utilización de typeof](#utilización-de-typeof)
 - [Utilización de Omit](#utilización-de-omit)
 - [Utilización de Pick](#utilización-de-pick)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
@@ -185,6 +186,26 @@ const updateSomePerson = (
 };
 
 updateSomePerson('12a3b4c1', 'name', 'john doe');
+```
+----------------------------------------------------------  
+## Utilización de typeof
+
+* Ejemplo interesante de _typeof_ para generar un tipo a partir de un objeto: 
+
+```typescript
+const AuthMethod = {
+	push: 'push notification',
+	sms: 'sms message',
+} as const;
+
+type AuthMethodType = typeof AuthMethod[keyof typeof AuthMethod]
+
+const authUsing = (authMethod: AuthMethodType): void => {
+	console.log(authMethod);
+};
+
+authUsing(AuthMethod.sms); // this is OK
+authUsing('sms message'); // interesting! This is OK (is not possible to do this using an enum)
 ```
 
 ----------------------------------------------------------  
