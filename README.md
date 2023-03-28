@@ -15,6 +15,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 - [Anomalías de TypeScript](#anomalías-de-typescript)
 - [@ts-expect-error versus @ts-ignore](#ts-expect-error-versus-ts-ignore)
+- [Template literal types](#template-literal-types)
 
 
 
@@ -414,3 +415,17 @@ const isOptionEnabled = (key: string): boolean => {
 
 ----------------------------------------------------------  
 
+## Template literal types
+
+```typescript
+type Dimensions = {
+	width: `${number}px`,
+	height: `${number}px`
+}
+
+const dimensions: Dimensions = {
+	width: '10px',
+	height: 'ten pixels' // Error: El tipo '"ten pixels"' no se puede asignar al tipo '`${number}px`'.
+};
+```
+----------------------------------------------------------  
