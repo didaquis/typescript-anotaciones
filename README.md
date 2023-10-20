@@ -399,7 +399,7 @@ const result = list.filter(Boolean); // [ 1, 2, 3 ]
 
 La única diferencia práctica en ambos casos es que _@ts-expect-error_ ignora el error mientras éste exista, pero si el error deja de existir te notifica que quizás ya no necesites esa directiva: `Unused '@ts-expect-error' directive`.
 
-En algunos casos te convendrá usar uno y otros casos preferirás el otro. 
+En algunos casos te convendrá usar uno y en otros casos preferirás el otro. 
 
 Por ejemplo si estás testeando que una función lanza un error si le pasas un tipo incorrecto, deberías usar _@ts-expect-error_ en el test para que TypeScript te permita llamar a la función pasándole un dato de un tipo equivocado. 
 
