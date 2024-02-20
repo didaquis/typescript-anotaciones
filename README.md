@@ -12,6 +12,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Utilización de typeof](#utilización-de-typeof)
 - [Utilización de Omit](#utilización-de-omit)
 - [Utilización de Pick](#utilización-de-pick)
+- [Utilización de Exclude](#utilización-de-exclude)
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 - [Anomalías de TypeScript](#anomalías-de-typescript)
 - [@ts-expect-error versus @ts-ignore](#ts-expect-error-versus-ts-ignore)
@@ -240,6 +241,21 @@ type User = {
 };
 
 type DemographicUserData = Pick<User, 'age'|'gender'>;
+```
+
+----------------------------------------------------------  
+## Utilización de Exclude
+
+* Puedes utilizar _Exclude_ para crear typos en base a algunas propiedades de otro tipo o enum. Fíjate que es una alternativa a _Partial_ para cuando si sabemos exactamente que propiedades contendrá nuestro nuevo tipo!
+
+```typescript
+enum PersistenceStrategy {
+    MYSQL = 'mysql',
+    MONGODB = 'mongodb',
+    POSTGRESQL = 'postgresql',
+}
+
+type RelationalPersistenceStrategy = Exclude<PersistenceStrategy, PersistenceStrategy.MONGODB>;
 ```
 
 ----------------------------------------------------------  
