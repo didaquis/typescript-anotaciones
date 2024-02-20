@@ -15,8 +15,8 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 - [Obtener los tipos de una librería de terceros no tipada](#obtener-los-tipos-de-una-librería-de-terceros-no-tipada)
 - [Anomalías de TypeScript](#anomalías-de-typescript)
 - [@ts-expect-error versus @ts-ignore](#ts-expect-error-versus-ts-ignore)
+- [@ts-nocheck](#ts-nocheck)
 - [Template literal types](#template-literal-types)
-
 
 
 ----------------------------------------------------------
@@ -412,6 +412,12 @@ const isOptionEnabled = (key: string): boolean => {
 	return !!globalOptions[key];
 };
 ```
+
+----------------------------------------------------------  
+
+## @ts-nocheck
+
+* Puedes decirle al compilador de TypeScript que ignore cualquier error en un fichero si al inicio de todo añades: _@ts-nocheck_
 
 ----------------------------------------------------------  
 
