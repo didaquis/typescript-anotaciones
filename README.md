@@ -7,6 +7,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 ## Tabla de Contenido
 - [Diccionarios](#diccionarios)
 - [Mapeando opciones](#mapeando-opciones)
+- [Clases abstractas e interfaces](#clases-abstractas-e-interfaces)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
 - [Utilización de typeof](#utilización-de-typeof)
@@ -118,6 +119,100 @@ export const getDomainOfPersistenceDataLayer = (): string => {
  *
  * console.log(getDomainOfPersistenceDataLayer());
  */
+```
+
+----------------------------------------------------------
+## Clases abstractas e interfaces
+
+Puedes hacer que una clase abstractar implemente distintas interfaces. Y luego puedes generar subclases de dicha clase abstracta: 
+
+```typescript
+interface Person {
+  firstName: string;
+  lastName: string;
+  // Esta interface no incluye el método protegido "getFullName" ya que el propósito de una interfaz es determinar el contrato público de una objeto
+}
+
+interface Work {
+    offerMyServices(): void
+    showRates(): void
+    doWork(): void;
+}
+
+// La siguiente clase abstracta implementa dos interfaces. Esta es la clase "base" de la que extenderán varias clases.
+abstract class BaseEmployee implements Person, Work {
+  // Si nos interesa, podemos marcar algunas propiedades como "readonly"
+  readonly firstName: string;
+  readonly lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+  }
+
+  // Añadimos un método protected
+  protected getFullName(): string {
+    return `${this.firstName} ${this.lastName}`
+  }
+
+  abstract offerMyServices(): void;
+
+  abstract showRates(): void;
+
+  abstract doWork(): void;
+}
+
+// Extendemos la clase abstracta (Fíjate que esta clase es una "SubClass" de la "SuperClass")
+class Plumber extends BaseEmployee {
+  constructor (firstName: string, lastName: string) {
+    super(firstName, lastName)
+  }
+
+  // Creamos las implementaciones de los métodos abstractos de la clase base
+  offerMyServices(): void {
+    // Fíjate que esta clase utiliza el método protected de la clase base
+    console.log(`My name is ${this.getFullName()} and I am a plumber`)
+  }
+
+  showRates(): void {
+    console.log('60 € per hour')
+  }
+
+  doWork(): void {
+    console.log('I am doing plumbing work...')
+  }
+}
+
+// Creamos otra SubClass
+class Electrician extends BaseEmployee {
+  constructor (firstName: string, lastName: string) {
+    super(firstName, lastName)
+  }
+
+  // Creamos las implementaciones de los métodos abstractos de la clase base
+  offerMyServices(): void {
+    // Fíjate que esta clase utiliza el método protected de la clase base
+    console.log(`My name is ${this.getFullName()} and I am a electrician`)
+  }
+
+  showRates(): void {
+    console.log('55 € per hour')
+  }
+
+  doWork(): void {
+    console.log('I am doing electrician work...')
+  }
+}
+
+
+const john = new Plumber('John', 'Doe');
+
+// john.getFullName(); // Error. getFullName es un método protegido!
+
+john.offerMyServices(); // 'My name is John Doe and I am a plumber'
+john.doWork(); // 'I am doing plumbing work...'
+
+// Crearíamos tantas SubClass como fueran necesarias. Así cada SubClass contendría su implementación. Estamos aplicando el concepto de polimorfismo (múltiples formas de un "BaseEmployee", cada uno con sus características encapsuladas)
 ```
 
 ----------------------------------------------------------
