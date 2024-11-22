@@ -7,6 +7,7 @@ Listado personal de anotaciones, trucos, recordatorios, utilidades o ejemplos in
 ## Tabla de Contenido
 - [Diccionarios](#diccionarios)
 - [Mapeando opciones](#mapeando-opciones)
+- [Comprobar si un valor está incluido en un enum](#comprobar-si-un-valor-está-incluido-en-un-enum)
 - [Clases abstractas e interfaces](#clases-abstractas-e-interfaces)
 - [Extendiendo la clase Error](#extendiendo-la-clase-error)
 - [Utilización de keyof](#utilización-de-keyof)
@@ -68,6 +69,28 @@ const featureFlagsConfiguration: Dictionary<boolean> = {
 	newUserProfilePage: true,
 	experimentalFilters: false,
 }
+```
+``
+
+----------------------------------------------------------  
+## Comprobar si un valor está incluido en un enum
+
+* Utilizar una función que comprueba si un determinado valor está incluído o no dentro de los valores de un enum.
+```typescript
+const isEnumMember = <E>(value: unknown, enumArg: Record<string | number | symbol, E>): value is E => {
+  return (Object.values(enumArg) as unknown[]).includes(value);
+};
+
+enum MessageType {
+    INFO = 'info',
+    SUCCESS = 'success',
+    WARNING = 'warning',
+    ERROR = 'error',
+};
+
+isEnumMember<MessageType>('success', MessageType); // returns true
+isEnumMember<MessageType>(MessageType.ERROR, MessageType); // returns true
+isEnumMember<MessageType>('whatever', MessageType); // returns false
 ```
 
 ----------------------------------------------------------  
