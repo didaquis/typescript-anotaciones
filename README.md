@@ -283,6 +283,19 @@ export class BarError extends AbstractError {
 	}
 }
 
+
+/**
+ * How to handle errors...
+ */
+try {
+  throw new BarError('some error');
+} catch (error: unknown) { // Typed as unknown!
+  if (error instanceof BarError) { // Check if is an error class and what error class is!
+      console.error('Error:', error.message);
+    } else {
+      console.error('Error desconocido:', error);
+    }
+}
 ```
 
 ----------------------------------------------------------  
