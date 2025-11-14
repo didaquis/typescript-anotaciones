@@ -285,12 +285,12 @@ export class BarError extends AbstractError {
 
 
 /**
- * How to handle errors...
+ * How to handle that errors...
  */
 try {
   throw new BarError('some error');
 } catch (error: unknown) { // Typed as unknown!
-  if (error instanceof BarError) { // Check if is an error class and what error class is!
+  if (error instanceof BarError) { // Check if is an error class and which error class is!
       console.error('Error:', error.message);
     } else {
       console.error('Error desconocido:', error);
